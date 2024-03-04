@@ -6,6 +6,7 @@ import dev.backend.modulecommon.enums.CodeEnum;
 import dev.backend.modulecommon.repositories.MemberRepository;
 import dev.backend.modulecommon.service.CommonDemoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class DemoService {
 
-    private final CommonDemoService commonDemoService;
+    @Value("${profile-name}")
+    private String name;
+
     private final MemberRepository memberRepository;
 
     public String save(){
+
         memberRepository.save(Member.builder().name(Thread.currentThread().getName()).build());
         return "Save";
     }
